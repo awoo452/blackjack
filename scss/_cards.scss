@@ -1,0 +1,728 @@
+.dealerCards {
+    display: flex;
+    justify-content: center;
+    flex: 100%;
+}
+
+.dealerCard1 {
+    position: absolute;
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard2 {
+    position: absolute;
+    background-color: white;
+    margin-left: 5vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard3 {
+    position: absolute;
+    background-color: white;
+    margin-left: 10vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard4 {
+    position: absolute;
+    background-color: white;
+    margin-left: 15vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard5 {
+    position: absolute;
+    background-color: white;
+    margin-left: 20vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard6 {
+    position: absolute;
+    background-color: white;
+    margin-left: 25vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard7 {
+    position: absolute;
+    background-color: white;
+    margin-left: 30vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard8 {
+    position: absolute;
+    background-color: white;
+    margin-left: 35vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard9 {
+    position: absolute;
+    background-color: white;
+    margin-left: 40vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard10 {
+    position: absolute;
+    background-color: white;
+    margin-left: 45vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard11 {
+    position: absolute;
+    background-color: white;
+    margin-left: 50vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard12 {
+    position: absolute;
+    background-color: white;
+    margin-left: 55vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.dealerCard13 {
+    position: absolute;
+    background-color: white;
+    margin-left: 60vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCards {
+    display: flex;
+    justify-content: center;
+    flex: 100%;
+}
+
+.playerCard1 {
+    position: absolute;
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard2 {
+    position: absolute;
+    background-color: white;
+    margin-left: 5vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard3 {
+    position: absolute;
+    background-color: white;
+    margin-left: 10vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard4 {
+    position: absolute;
+    background-color: white;
+    margin-left: 15vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard5 {
+    position: absolute;
+    background-color: white;
+    margin-left: 20vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard6 {
+    position: absolute;
+    background-color: white;
+    margin-left: 25vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard7 {
+    position: absolute;
+    background-color: white;
+    margin-left: 30vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard8 {
+    position: absolute;
+    background-color: white;
+    margin-left: 35vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard9 {
+    position: absolute;
+    background-color: white;
+    margin-left: 40vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard10 {
+    position: absolute;
+    background-color: white;
+    margin-left: 45vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard11 {
+    position: absolute;
+    background-color: white;
+    margin-left: 50vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard12 {
+    position: absolute;
+    background-color: white;
+    margin-left: 55vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.playerCard13 {
+    position: absolute;
+    background-color: white;
+    margin-left: 60vw;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.flippedCard {
+    background-image: url("../img/flipped.png")!important;
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bust {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    width: 500px;
+}
+
+.spadesA {
+    background-image: url("../img/spades/A.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spades2 {
+    background-image: url("../img/spades/2.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spades3 {
+    background-image: url("../img/spades/3.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spades4 {
+    background-image: url("../img/spades/4.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spades5 {
+    background-image: url("../img/spades/5.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spades6 {
+    background-image: url("../img/spades/6.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spades7 {
+    background-image: url("../img/spades/7.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spades8 {
+    background-image: url("../img/spades/8.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spades9 {
+    background-image: url("../img/spades/9.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spades10 {
+    background-image: url("../img/spades/10.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spadesJ {
+    background-image: url("../img/spades/j.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spadesQ {
+    background-image: url("../img/spades/q.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.spadesK {
+    background-image: url("../img/spades/k.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.heartsA {
+    background-image: url("../img/hearts/A.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hearts2 {
+    background-image: url("../img/hearts/2.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hearts3 {
+    background-image: url("../img/hearts/3.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hearts4 {
+    background-image: url("../img/hearts/4.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hearts5 {
+    background-image: url("../img/hearts/5.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hearts6 {
+    background-image: url("../img/hearts/6.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hearts7 {
+    background-image: url("../img/hearts/7.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hearts8 {
+    background-image: url("../img/hearts/8.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hearts9 {
+    background-image: url("../img/hearts/9.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hearts10 {
+    background-image: url("../img/hearts/10.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.heartsJ {
+    background-image: url("../img/hearts/j.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.heartsQ {
+    background-image: url("../img/hearts/q.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.heartsK {
+    background-image: url("../img/hearts/k.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubsA {
+    background-image: url("../img/clubs/A.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubs2 {
+    background-image: url("../img/clubs/2.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubs3 {
+    background-image: url("../img/clubs/3.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubs4 {
+    background-image: url("../img/clubs/4.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubs5 {
+    background-image: url("../img/clubs/5.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubs6 {
+    background-image: url("../img/clubs/6.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubs7 {
+    background-image: url("../img/clubs/7.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubs8 {
+    background-image: url("../img/clubs/8.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubs9 {
+    background-image: url("../img/spades/9.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubs10 {
+    background-image: url("../img/clubs/10.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubsJ {
+    background-image: url("../img/clubs/j.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubsQ {
+    background-image: url("../img/clubs/q.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clubsK {
+    background-image: url("../img/clubs/k.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamondsA {
+    background-image: url("../img/diamonds/A.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamonds2 {
+    background-image: url("../img/diamonds/2.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamonds3 {
+    background-image: url("../img/diamonds/3.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamonds4 {
+    background-image: url("../img/diamonds/4.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamonds5 {
+    background-image: url("../img/diamonds/5.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamonds6 {
+    background-image: url("../img/diamonds/6.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamonds7 {
+    background-image: url("../img/diamonds/7.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamonds8 {
+    background-image: url("../img/diamonds/8.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamonds9 {
+    background-image: url("../img/diamonds/9.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamonds10 {
+    background-image: url("../img/diamonds/10.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamondsJ {
+    background-image: url("../img/diamonds/j.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamondsQ {
+    background-image: url("../img/diamonds/q.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.diamondsK {
+    background-image: url("../img/diamonds/k.png");
+    background-size: contain;
+    width: $card-width;
+    height: $card-height;
+    background-repeat: no-repeat;
+    background-position: center;
+}

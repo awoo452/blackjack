@@ -1,0 +1,112 @@
+@import './variables';
+@import './cards';
+
+html {
+
+}
+body {
+
+    margin: 0;
+
+    font-family: $default-font;
+    background-color: $aw-blue;
+    color: $font-color;
+
+    h6 {
+        margin: 0;
+        font-size: 1em;
+    }
+    h5 {
+        margin: 0;
+        font-size: 1.25em;
+    }
+
+    .invisible {
+        all: unset;
+    }
+
+    #blackjackTable {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 70vh;
+
+        padding: 1em;
+
+        background-image: url($blackjack-table-background-image);
+        background-size: cover;
+        
+        text-align: center;
+
+        border-bottom: 2px solid black;
+        
+        border-bottom-left-radius: 20%;
+        border-bottom-right-radius: 20%;
+        
+        .cardSquare {
+
+            height: $card-square-height;
+            width: $card-square-width;
+
+            border: 5px solid $card-square-color;
+
+            .dealerCards {
+                margin-top: .25em;
+            }
+
+            .playerCards {
+                margin-top: .25em;
+            }
+            
+        }
+
+        #tableCenter {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            #rules {
+                margin-top: 1em;
+            }
+
+            img {
+                width: 40%;
+            }
+        }
+
+    }
+
+    #winner {
+        margin-top: 1em;
+        text-align: center;
+    }
+
+    #buttonContainer {
+        margin: auto;
+
+        display: flex;
+        justify-content: space-evenly;
+        width: 50%;
+        
+
+        margin-top: 1em;
+        button {
+            width: 25%;
+            background-color: black;
+            font-family: $default-font;
+            color: white;
+            border: none;
+            border-right: 1px solid $line-color;
+            border-bottom: 1px solid $line-color;
+            border-radius: 25%;
+        }
+        button:hover {
+            cursor: pointer;
+        }
+        button:focus {
+            outline: none;
+        }
+    }
+}
