@@ -5,13 +5,12 @@ html {
 
 }
 body {
-
     margin: 0;
-
+    max-width: 1000px;
     font-family: $default-font;
     background-color: $aw-blue;
     color: $font-color;
-
+    margin: auto;
     h6 {
         margin: 0;
         font-size: 1em;
