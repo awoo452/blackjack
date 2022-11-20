@@ -98,47 +98,20 @@ function dealCards() {
         }
     }*/
     burnPile.push(deck[0]);
+    createNewDivWithClassAndId('burnPile', 'card', burnPile[0]);
     playerCards.push(deck[1]);
+    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[0]);
     dealerCards.push(deck[2]);
+    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[0]);
     playerCards.push(deck[3]);
+    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[1]);
     dealerCards.push(deck[4]);
-}
-
-function putTheCardsOnTheTable() {
-    for (let i = 0; i < burnPile.length; i++) {
-        do {
-            createNewDivWithClassAndId('burnPile', 'card', burnPile[i])
-            
-        }
-        while (i > burnPile.length)
-    }
-    for (let i = 0; i < playerCards.length; i++) {
-        do {
-            createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[i])
-            
-        }
-        while (i > playerCards.length)
-    }
-    /* Add a player!
-    for (let i = 0; i < playerCards.length; i++) {
-        do {
-            createNewDiv('playerTwoSquare');
-        }
-        while (i > playerCards.length)
-    }
-    */
-    for (let i = 0; i < dealerCards.length; i ++) {
-        do {
-            createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[i]);
-        }
-        while (i > dealerCards.length)
-    }
+    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[1]);
 }
 
 function deal() {
     newDeckOfCards()
     dealCards();
-    putTheCardsOnTheTable();
     console.log(deck);
     console.log('player' + playerCards);
     console.log('dealer' + dealerCards);
