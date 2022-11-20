@@ -114,7 +114,7 @@ function addSomeCardsToPlayerOne(howMany) {
     } while (cardsDealtToPlayer < magic);
 }
 
-function AddSomeCardsToDealer(howMany) {
+function addSomeCardsToDealer(howMany) {
     let magic = cardsDealtToDealer + howMany;
     do {
     dealerCards.push(deck[cardsDealt]);
@@ -127,9 +127,9 @@ function AddSomeCardsToDealer(howMany) {
 function dealCards() {
     addSomeCardsToTheBurnPile(1);
     addSomeCardsToPlayerOne(1);
-    AddSomeCardsToDealer(1);
+    addSomeCardsToDealer(1);
     addSomeCardsToPlayerOne(1);
-    AddSomeCardsToDealer(1);
+    addSomeCardsToDealer(1);
 }
 
 let playerHit = null;
