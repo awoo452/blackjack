@@ -90,6 +90,9 @@ let playerList = [
 ]
 
 let cardsDealt = 0;
+let cardsDealtToDealer = 0;
+let cardsDealtToPlayer = 0;
+let cardsBurned = 0;
 
 function dealCards() {
     /*for (let i = 0; i < playerList.length; i++) {
@@ -97,17 +100,34 @@ function dealCards() {
             playerList[i].push(deck[j])
         }
     }*/
-    burnPile.push(deck[0]);
-    createNewDivWithClassAndId('burnPile', 'card', burnPile[0]);
-    playerCards.push(deck[1]);
-    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[0]);
-    dealerCards.push(deck[2]);
-    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[0]);
-    playerCards.push(deck[3]);
-    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[1]);
-    dealerCards.push(deck[4]);
-    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[1]);
+    burnPile.push(deck[cardsDealt]);
+    createNewDivWithClassAndId('burnPile', 'card', burnPile[cardsBurned]);
+    cardsDealt += 1;
+    cardsBurned += 1;
+
+    playerCards.push(deck[cardsDealt]);
+    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
+    cardsDealt += 1;
+    cardsDealtToPlayer += 1;
+
+    dealerCards.push(deck[cardsDealt]);
+    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
+    cardsDealt += 1;
+    cardsDealtToDealer += 1;
+    
+    playerCards.push(deck[cardsDealt]);
+    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
+    dealerCards.push(deck[cardsDealt]);
+    cardsDealt += 1;
+    cardsDealtToPlayer += 1;
+
+    dealerCards.push(deck[cardsDealt]);
+    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
+    cardsDealt += 1;
+    cardsDealtToDealer += 1;
 }
+
+let playerHit = null;
 
 function deal() {
     newDeckOfCards()
@@ -118,8 +138,12 @@ function deal() {
     console.log('burner' + burnPile);
 }
 
+
 function hit() {
-    
+    playerCards.push(deck[cardsDealt]);
+    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
+    cardsDealt += 1;
+    cardsDealtToPlayer += 1;
 }
 
 function stand() {
