@@ -18,104 +18,52 @@
 
 
     <body>
-        <div id="blackjackTable">
+        <div id="table">
 
-            <h5>Dealer Score: <span id="dealerScore">0</span></h5>
+            <h1>Dealer: <span id="dealerScore">0</span></h1>
 
-            <div class="cardSquare">
-                <div class="dealerCards">
-                    <div id="dealerCard1" class="dealerCard1 invisible">
-                    </div>
-                    <div id="dealerCard2" class="dealerCard2 invisible">
-                    </div>
-                    <div id="dealerCard3" class="dealerCard3 invisible">
-                    </div>
-                    <div id="dealerCard4" class="dealerCard4 invisible">
-                    </div>
-                    <div id="dealerCard5" class="dealerCard5 invisible">
-                    </div>
-                    <div id="dealerCard6" class="dealerCard6 invisible">
-                    </div>
-                    <div id="dealerCard7" class="dealerCard7 invisible">
-                    </div>
-                    <div id="dealerCard8" class="dealerCard8 invisible">
-                    </div>
-                    <div id="dealerCard9" class="dealerCard9 invisible">
-                    </div>
-                    <div id="dealerCard10" class="dealerCard10 invisible">
-                    </div>
-                    <div id="dealerCard11" class="dealerCard11 invisible">
-                    </div>
-                    <div id="dealerCard12" class="dealerCard12 invisible">
-                    </div>
-                    <div id="dealerCard13" class="dealerCard13 invisible">
-                    </div>
-                </div>
+            <div class="cardSquare" id="dealerSquare">
+                
             </div>
 
             <div id="tableCenter">
                 <img src="../img/logo.png">
+                <div class="cardSquare" id="burnPile"></div>
                 <div id="rules">
 
-                    <h6>DEALER STAYS ON 17</h6>
-                    <H6>INSURANCE PAYS 2 TO 1</H6>
+                    <h1>DEALER STAYS ON 17</h1>
+                    <h1>INSURANCE IS A SCAM</h1>
 
                 </div>
             </div>
 
-            <div class="cardSquare">
-                <div class="playerCards">
-                    <div id="playerCard1" class="playerCard1 invisible">
-                    </div>
-                    <div id ="playerCard2" class="playerCard2 invisible">
-                    </div>
-                    <div id="playerCard3" class="playerCard3 invisible">
-                    </div>
-                    <div id="playerCard4" class="playerCard4 invisible">
-                    </div>
-                    <div id="playerCard5" class="playerCard5 invisible">
-                    </div>
-                    <div id="playerCard6" class="playerCard6 invisible">
-                    </div>
-                    <div id="playerCard7" class="playerCard7 invisible">
-                    </div>
-                    <div id="playerCard8" class="playerCard8 invisible">
-                    </div>
-                    <div id="playerCard9" class="playerCard9 invisible">
-                    </div>
-                    <div id="playerCard10" class="playerCard10 invisible">
-                    </div>
-                    <div id="playerCard11" class="playerCard11 invisible">
-                    </div>
-                    <div id="playerCard12" class="playerCard12 invisible">
-                    </div>
-                    <div id="playerCard13" class="playerCard13 invisible">
-                    </div>
-                </div>
+            <div class="cardSquare" id="playerOneSquare">
+
             </div>
 
-            <h5>Your Score: <span id="playerScore"> 0</span></h5>
+            <h1>Player 1: <span id="playerScore"> 0</span></h1>
 
         </div>
 
         <div id="winner">
 
-            <h5>Final Score: <span id="finalScore"></span></h5>
+            <h1>Results: <span id="finalScore"></span></h1>
 
         </div>
 
         <div id="buttonContainer">
 
-            <button onclick="deal () ">Deal</button>
-            <button onclick="hit () ">Hit</button>
-            <button onclick="stand () ">Stand</button>
-            <button onclick="reset ()" >Reset</button>
+            <button id="dealButton">Deal</button>
+            <button id="hitButton">Hit</button>
+            <button id="standButton">Stand</button>
+            <button id="resetButton">Reset</button>
 
         </div>
 
         <!--app.js-->
-        <script src="/blackjack.js" charset="utf-8"></script>
-        <script src="/app.js"></script>
+        <script src="/app2.js" charset="utf-8">
+            
+        </script>
         
     </body>
 
