@@ -94,37 +94,42 @@ let cardsDealtToDealer = 0;
 let cardsDealtToPlayer = 0;
 let cardsBurned = 0;
 
+function addSomeCardsToTheBurnPile(howMany) {
+    let magic = cardsBurned + howMany
+    do {
+        burnPile.push(deck[cardsDealt]);
+        createNewDivWithClassAndId('burnPile', 'card', burnPile[cardsBurned]);
+        cardsDealt += 1;
+        cardsBurned += 1;
+    } while (cardsBurned < magic);
+}
+
+function addSomeCardsToPlayerOne(howMany) {
+    let magic = cardsDealtToPlayer + howMany;
+    do {
+        playerCards.push(deck[cardsDealt]);
+        createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
+        cardsDealt += 1;
+        cardsDealtToPlayer += 1;
+    } while (cardsDealtToPlayer < magic);
+}
+
+function AddSomeCardsToDealer(howMany) {
+    let magic = cardsDealtToDealer + howMany;
+    do {
+    dealerCards.push(deck[cardsDealt]);
+    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
+    cardsDealt += 1;
+    cardsDealtToDealer += 1;
+    } while (cardsDealtToDealer < magic)
+}
+
 function dealCards() {
-    /*for (let i = 0; i < playerList.length; i++) {
-        for (let j = 0; j < cardsDealt.length; i++) {
-            playerList[i].push(deck[j])
-        }
-    }*/
-    burnPile.push(deck[cardsDealt]);
-    createNewDivWithClassAndId('burnPile', 'card', burnPile[cardsBurned]);
-    cardsDealt += 1;
-    cardsBurned += 1;
-
-    playerCards.push(deck[cardsDealt]);
-    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
-    cardsDealt += 1;
-    cardsDealtToPlayer += 1;
-
-    dealerCards.push(deck[cardsDealt]);
-    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
-    cardsDealt += 1;
-    cardsDealtToDealer += 1;
-    
-    playerCards.push(deck[cardsDealt]);
-    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
-    dealerCards.push(deck[cardsDealt]);
-    cardsDealt += 1;
-    cardsDealtToPlayer += 1;
-
-    dealerCards.push(deck[cardsDealt]);
-    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
-    cardsDealt += 1;
-    cardsDealtToDealer += 1;
+    addSomeCardsToTheBurnPile(1);
+    addSomeCardsToPlayerOne(1);
+    AddSomeCardsToDealer(1);
+    addSomeCardsToPlayerOne(1);
+    AddSomeCardsToDealer(1);
 }
 
 let playerHit = null;
@@ -140,10 +145,7 @@ function deal() {
 
 
 function hit() {
-    playerCards.push(deck[cardsDealt]);
-    createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
-    cardsDealt += 1;
-    cardsDealtToPlayer += 1;
+    addSomeCardsToPlayerOne(1);
 }
 
 function stand() {
