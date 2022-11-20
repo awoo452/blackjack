@@ -137,10 +137,6 @@ let playerHit = null;
 function deal() {
     newDeckOfCards()
     dealCards();
-    console.log(deck);
-    console.log('player' + playerCards);
-    console.log('dealer' + dealerCards);
-    console.log('burner' + burnPile);
 }
 
 
