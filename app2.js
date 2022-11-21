@@ -19,21 +19,26 @@ function createNewDivWithClassAndId(parent, whichClass, whichId) {
     document.getElementById(whichId).classList.add(whichClass);
 }
 
+function addIdToDiv(whichDiv, WhichId) {
+    let divToAddTo = document.querySelector(whichDiv);
+    divToAddTo.setAttribute('id', WhichId);
+}
+
 const cards = [
-    'joker',
-    'ace',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eight',
-    'nine',
-    'ten',
-    'jack',
-    'queen',
-    'king'
+    {card: 'joker', points: 1},
+    {card: 'ace', points: 11},
+    {card: 'two', points: 2},
+    {card: 'three', points: 3},
+    {card: 'four', points: 4},
+    {card: 'five', points: 5},
+    {card: 'six', points: 6},
+    {card: 'seven', points: 7},
+    {card: 'eight', points: 8},
+    {card: 'nine', points: 9},
+    {card: 'ten', points: 10},
+    {card: 'jack', points: 10},
+    {card: 'queen', points: 10},
+    {card: 'king', points: 10}
 ]
 
 const numberOfCardsInTheDeck = 52
@@ -43,7 +48,8 @@ function cardDecider() {
     if (value === 0) {
         value += 1; //This removes the joker from the deck, there's a better way to do this.
     }
-    return cards[value];
+    return cards[value].card;
+    
 }
 
 const suit = [
@@ -109,8 +115,14 @@ function addSomeCardsToPlayerOne(howMany) {
     do {
         playerCards.push(deck[cardsDealt]);
         createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
+        for (let i = 0; i < cardsDealtToPlayer; i++) {
+            
+        }
+        //select all divs in the player box and += i em to each
+        //https://bobbyhadz.com/blog/javascript-get-nth-child-of-element
         cardsDealt += 1;
         cardsDealtToPlayer += 1;
+        
     } while (cardsDealtToPlayer < magic);
 }
 
@@ -145,7 +157,7 @@ function hit() {
 }
 
 function stand() {
-
+    //do {addSomeCardsToDealer()} while (dealerScore < 17);
 }
 
 const dealButton = document.getElementById('dealButton');

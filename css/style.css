@@ -459,7 +459,7 @@
   height: 13vh;
 }
 
-#kingOfDiamonds {
+#kingOfClubs {
   background: url("/img/clubs/k.png");
   background-size: 100%;
   background-position: center;
@@ -499,15 +499,14 @@ body #table img {
 }
 
 body #table .cardSquare {
-  width: 8.71vh;
-  height: 13vh;
   border: 3px solid yellow;
   margin: auto;
   box-sizing: content-box;
+  width: 8.71vh;
+  height: 13vh;
 }
 
 body #table .cardSquare .card {
-  position: absolute;
   width: 8.71vh;
   height: 13vh;
 }

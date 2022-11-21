@@ -19,13 +19,13 @@ body {
             width: 25%;
             height: auto;
         }
-        .cardSquare {
-            @include card-size;
+        .cardSquare {           
             border: 3px solid yellow;
             margin: auto;
-            box-sizing: content-box;
+            box-sizing: content-box;     
+            @include card-size;       
             .card {
-                position: absolute;
+
                 @include card-size;
             }
         }

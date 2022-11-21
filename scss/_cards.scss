@@ -253,7 +253,7 @@
     @include card-size;
 }
 
-#kingOfDiamonds {
+#kingOfClubs {
     @include custom-image(url('/img/clubs/k.png'), 100%, center, no-repeat);
     @include card-size;
 }
