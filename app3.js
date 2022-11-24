@@ -42,14 +42,14 @@ const cards = [
 ]
 
 const numberOfCardsInTheDeck = 52
-let points = null;
+let cardValue = null;
 
 function cardDecider() {
     let value = randomNumberBetweenZeroAnd(cards.length)
     if (value === 0) {
         value += 1; //This removes the joker from the deck, there's a better way to do this.
     }
-    points = cards[value].points;
+    cardValue = cards[value].points;
     return cards[value].card;
     
 }
@@ -66,17 +66,17 @@ function suitDecider() {
     return suit[value];
 }
 
-let deck = [];
-
+let deck = []
+//{card: 'cardOfSuit', points: x;}
 let reject = false;
 
 function addCardToDeck() {
-    let card = cardDecider() + 'Of' + suitDecider();
-    if (deck.includes(card)) {
+    let cardDecided = cardDecider() + 'Of' + suitDecider();
+    if (deck.includes(cardDecided)) {
         reject = true;
     }
     if (reject == false) {
-    deck.push({card, points});
+    deck.push({cardDecided, cardValue});
     }
     reject = false;
 }
@@ -84,7 +84,7 @@ function addCardToDeck() {
 function newDeckOfCards() {
     do {
         addCardToDeck();
-    } while (deck.length < numberOfCardsInTheDeck);
+    } while (deck[cardDecided].length < numberOfCardsInTheDeck);
     console.log(deck);
 }
 
@@ -99,39 +99,35 @@ let playerList = [
 ]
 
 let cardsDealt = 0;
+let cardsBurned = 0;
 let cardsDealtToDealer = 0;
 let cardsDealtToPlayer = 0;
-let cardsBurned = 0;
 
 function addSomeCardsToTheBurnPile(howMany) {
-    let magic = cardsBurned + howMany
     do {
-        burnPile.push(deck[cardsDealt].card);
+        burnPile.push(deck[cardsDealt]);
         createNewDivWithClassAndId('burnPile', 'card', burnPile[cardsBurned]);
         cardsDealt += 1;
         cardsBurned += 1;
-    } while (cardsBurned < magic);
+    } while (cardsBurned + howMany < burnPile.length);
 }
 
 function addSomeCardsToPlayerOne(howMany) {
-    let magic = cardsDealtToPlayer + howMany;
     do {
-        playerCards.push(deck[cardsDealt].card);
+        playerCards.push(deck[cardsDealt]);
         createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
         cardsDealt += 1;
         cardsDealtToPlayer += 1;
-        
-    } while (cardsDealtToPlayer < magic);
+    } while (cardsDealtToPlayer + howMany < playerCards.length);
 }
 
 function addSomeCardsToDealer(howMany) {
-    let magic = cardsDealtToDealer + howMany;
     do {
-    dealerCards.push(deck[cardsDealt].card);
+    dealerCards.push(deck[cardsDealt]);
     createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
     cardsDealt += 1;
     cardsDealtToDealer += 1;
-    } while (cardsDealtToDealer < magic)
+    } while (cardsDealtToDealer + howMany < dealerCards.length);
 }
 
 function dealCards() {
@@ -140,6 +136,9 @@ function dealCards() {
     addSomeCardsToDealer(1);
     addSomeCardsToPlayerOne(1);
     addSomeCardsToDealer(1);
+    console.log(playerCards)
+    console.log(dealerCards)
+    console.log(burnPile)
 }
 
 let playerHit = null;
