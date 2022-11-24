@@ -90,51 +90,60 @@ function newDeckOfCards() {
 
 let burnPile = [];
 let dealerCards = [];
-let playerCards = [];
+let playerOneCards = [];
 
 let playerList = [
     burnPile,
-    playerCards,
+    playerOneCards,
     dealerCards
 ]
 
 let cardsDealt = 0;
 let cardsDealtToDealer = 0;
-let cardsDealtToPlayer = 0;
+let cardsDealtToPlayerOne = 0;
 let cardsBurned = 0;
 
 function addSomeCardsToTheBurnPile(howMany) {
-    let magic = cardsBurned + howMany
     do {
         burnPile.push(deck[cardsDealt].card);
         createNewDivWithClassAndId('burnPile', 'card', burnPile[cardsBurned]);
         cardsDealt += 1;
         cardsBurned += 1;
-    } while (cardsBurned < magic);
+    } while (cardsBurned + howMany < burnPile.length);
 }
+
+let playerScore = document.querySelector("#playerScore");
+let playerScoreCount = 0
 
 function addSomeCardsToPlayerOne(howMany) {
-    let magic = cardsDealtToPlayer + howMany;
     do {
-        playerCards.push(deck[cardsDealt].card);
-        createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
+        playerOneCards.push(deck[cardsDealt].card);
+        playerScoreCount += deck[cardsDealt].points;
+        playerScore.textContent = playerScoreCount.toString();
+        createNewDivWithClassAndId('playerOneSquare', 'card', playerOneCards[cardsDealtToPlayerOne]);
         cardsDealt += 1;
-        cardsDealtToPlayer += 1;
-        
-    } while (cardsDealtToPlayer < magic);
+        cardsDealtToPlayerOne += 1;
+    } while (cardsDealtToPlayerOne + howMany < playerOneCards.length);
 }
 
+let dealerScore = document.querySelector('#dealerScore');
+let dealerScoreCount = 0;
+
 function addSomeCardsToDealer(howMany) {
-    let magic = cardsDealtToDealer + howMany;
     do {
     dealerCards.push(deck[cardsDealt].card);
+    dealerScoreCount += deck[cardsDealt].points;
+    dealerScore.textContent = dealerScoreCount.toString();
     createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
     cardsDealt += 1;
     cardsDealtToDealer += 1;
-    } while (cardsDealtToDealer < magic)
+    } while (cardsDealtToDealer + howMany < dealerCards.length);
 }
 
+let dealt = null;
+
 function dealCards() {
+    dealt = true;
     addSomeCardsToTheBurnPile(1);
     addSomeCardsToPlayerOne(1);
     addSomeCardsToDealer(1);
@@ -142,21 +151,51 @@ function dealCards() {
     addSomeCardsToDealer(1);
 }
 
-let playerHit = null;
-
 function deal() {
+    if (dealt != true) {
     newDeckOfCards()
     dealCards();
+    }
 }
-
+didPlayerOneStand = null;
 
 function hit() {
+    if (didPlayerOneStand != true && playerScoreCount < 21 ) {
     addSomeCardsToPlayerOne(1);
+    }
+}
+
+dealerBusted = null;
+playerBusted = null;
+
+function whoWon() {
+    if (dealerScoreCount > 21) {
+        dealerBusted = true;
+    }
+    if (playerScoreCount > 21) {
+        playerBusted = true;
+    }
+    if (playerBusted == true) {
+        console.log('dealer wins because player busted');
+    } else if (dealerBusted == true && playerBusted != true) {
+        console.log('player wins because dealer busted');
+    } else if (dealerScoreCount > playerScoreCount) {
+        console.log('dealer wins because dealer has a better hand');
+    } else if (dealerScoreCount == playerScoreCount) {
+        console.log('push');
+    } else if (dealerScoreCount < playerScoreCount) {
+        console.log('player wins because player has a better hand');
+    }
 }
 
 function stand() {
-    //do {addSomeCardsToDealer()} while (dealerScore < 17);
+    didPlayerStand = true;
+    if (dealerScoreCount < 17) {
+    do {addSomeCardsToDealer(1)} while (dealerScoreCount < 17)
+    }
+    whoWon();
 }
+
 
 const dealButton = document.getElementById('dealButton');
 dealButton.addEventListener("click", deal);

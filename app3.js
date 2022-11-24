@@ -42,14 +42,14 @@ const cards = [
 ]
 
 const numberOfCardsInTheDeck = 52
-let cardValue = null;
+let points = null;
 
 function cardDecider() {
     let value = randomNumberBetweenZeroAnd(cards.length)
     if (value === 0) {
         value += 1; //This removes the joker from the deck, there's a better way to do this.
     }
-    cardValue = cards[value].points;
+    points = cards[value].points;
     return cards[value].card;
     
 }
@@ -66,17 +66,17 @@ function suitDecider() {
     return suit[value];
 }
 
-let deck = []
-//{card: 'cardOfSuit', points: x;}
+let deck = [];
+
 let reject = false;
 
 function addCardToDeck() {
-    let cardDecided = cardDecider() + 'Of' + suitDecider();
-    if (deck.includes(cardDecided)) {
+    let card = cardDecider() + 'Of' + suitDecider();
+    if (deck.includes(card)) {
         reject = true;
     }
     if (reject == false) {
-    deck.push({cardDecided, cardValue});
+    deck.push({card, points});
     }
     reject = false;
 }
@@ -84,7 +84,7 @@ function addCardToDeck() {
 function newDeckOfCards() {
     do {
         addCardToDeck();
-    } while (deck[cardDecided].length < numberOfCardsInTheDeck);
+    } while (deck.length < numberOfCardsInTheDeck);
     console.log(deck);
 }
 
@@ -99,31 +99,42 @@ let playerList = [
 ]
 
 let cardsDealt = 0;
-let cardsBurned = 0;
 let cardsDealtToDealer = 0;
 let cardsDealtToPlayer = 0;
+let cardsBurned = 0;
 
 function addSomeCardsToTheBurnPile(howMany) {
+    let magic = cardsBurned + howMany
     do {
-        burnPile.push(deck[cardsDealt]);
+        burnPile.push(deck[cardsDealt].card);
         createNewDivWithClassAndId('burnPile', 'card', burnPile[cardsBurned]);
         cardsDealt += 1;
         cardsBurned += 1;
-    } while (cardsBurned + howMany < burnPile.length);
+    } while (cardsBurned < magic);
 }
+
+let playerScore = document.querySelector("#playerScore");
+let playerScoreCount = 0
 
 function addSomeCardsToPlayerOne(howMany) {
     do {
-        playerCards.push(deck[cardsDealt]);
+        playerCards.push(deck[cardsDealt].card);
+        playerScoreCount += deck[cardsDealt].points;
+        playerScore.textContent = playerScoreCount.toString();
         createNewDivWithClassAndId('playerOneSquare', 'card', playerCards[cardsDealtToPlayer]);
         cardsDealt += 1;
         cardsDealtToPlayer += 1;
     } while (cardsDealtToPlayer + howMany < playerCards.length);
 }
 
+let dealerScore = document.querySelector('#dealerScore');
+let dealerScoreCount = 0;
+
 function addSomeCardsToDealer(howMany) {
     do {
-    dealerCards.push(deck[cardsDealt]);
+    dealerCards.push(deck[cardsDealt].card);
+    dealerScoreCount += deck[cardsDealt].points;
+    dealerScore.textContent = dealerScoreCount.toString();
     createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
     cardsDealt += 1;
     cardsDealtToDealer += 1;
@@ -136,9 +147,6 @@ function dealCards() {
     addSomeCardsToDealer(1);
     addSomeCardsToPlayerOne(1);
     addSomeCardsToDealer(1);
-    console.log(playerCards)
-    console.log(dealerCards)
-    console.log(burnPile)
 }
 
 let playerHit = null;
@@ -154,8 +162,10 @@ function hit() {
 }
 
 function stand() {
-    //do {addSomeCardsToDealer()} while (dealerScore < 17);
+    addSomeCardsToDealer(1);
 }
+
+
 
 const dealButton = document.getElementById('dealButton');
 dealButton.addEventListener("click", deal);
