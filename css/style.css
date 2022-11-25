@@ -499,21 +499,23 @@ body #table img {
 }
 
 body #table .cardSquare {
-  border: 3px solid yellow;
-  margin: auto;
-  box-sizing: content-box;
-  width: 8.71vh;
+  display: flex;
+  margin-left: 40%;
   height: 13vh;
 }
 
 body #table .cardSquare .card {
   width: 8.71vh;
   height: 13vh;
+  z-index: 5;
 }
 
 body #table #burnPile {
-  display: inline-block;
-  position: absolute;
-  margin-left: 3em;
-  margin-top: 1em;
+  margin-left: 0 !important;
+}
+
+body #table #burnPile .card {
+  width: 8.71vh;
+  height: 13vh;
+  z-index: 5;
 }

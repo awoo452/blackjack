@@ -12,7 +12,7 @@ function createNewDivWithId(parent, whichId) {
     whereItGoes.appendChild(newDiv).setAttribute('id', whichId);
 }
 
-function createNewDivWithClassAndId(parent, whichClass, whichId) {
+function createNewDivWithClassAndId(parent, whichClass, whichId,) {
     let whereItGoes = document.getElementById(parent);
     let newDiv = document.createElement('div');
     whereItGoes.appendChild(newDiv).setAttribute('id', whichId);
@@ -68,14 +68,14 @@ function suitDecider() {
 
 let deck = [];
 
-let reject = false;
+let reject = null;
 
 function addCardToDeck() {
     let card = cardDecider() + 'Of' + suitDecider();
     if (deck.includes(card)) {
         reject = true;
     }
-    if (reject == false) {
+    if (reject != true) {
     deck.push({card, points});
     }
     reject = false;
@@ -106,7 +106,7 @@ let cardsBurned = 0;
 function addSomeCardsToTheBurnPile(howMany) {
     do {
         burnPile.push(deck[cardsDealt].card);
-        createNewDivWithClassAndId('burnPile', 'card', burnPile[cardsBurned]);
+        createNewDivWithClassAndId('burnedPile', 'card', burnPile[cardsBurned]);
         cardsDealt += 1;
         cardsBurned += 1;
     } while (cardsBurned + howMany < burnPile.length);
@@ -189,13 +189,42 @@ function whoWon() {
 }
 
 function stand() {
-    didPlayerStand = true;
+    didPlayerOneStand = true;
     if (dealerScoreCount < 17) {
     do {addSomeCardsToDealer(1)} while (dealerScoreCount < 17)
     }
     whoWon();
 }
 
+function reset() {
+    points = null;
+    deck = [];
+    reject = null;
+    burnPile = [];
+    dealerCards = [];
+    playerOneCards = [];
+    cardsDealt = 0;
+    cardsDealtToDealer = 0;
+    cardsDealtToPlayerOne = 0;
+    cardsBurned = 0;
+    playerScoreCount = 0
+    dealerScoreCount = 0;
+    dealt = null;
+    didPlayerOneStand = null;
+    dealerBusted = null;
+    playerBusted = null;
+    while (playerOneSquare.hasChildNodes()) {
+        playerOneSquare.removeChild(playerOneSquare.lastChild);
+    }
+    while (dealerSquare.hasChildNodes()) {
+    dealerSquare.removeChild(dealerSquare.lastChild);
+    }
+    while (burnedPile.hasChildNodes()) {
+        burnedPile.removeChild(burnedPile.lastChild);
+    }
+    dealerScore.textContent = '0';
+    playerScore.textContent = '0';
+}
 
 const dealButton = document.getElementById('dealButton');
 dealButton.addEventListener("click", deal);
@@ -205,3 +234,6 @@ hitButton.addEventListener("click", hit);
 
 const standButton = document.getElementById('standButton');
 standButton.addEventListener("click", stand);
+
+const resetButton = document.getElementById('resetButton');
+resetButton.addEventListener("click", reset);
