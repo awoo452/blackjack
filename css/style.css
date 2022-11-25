@@ -510,11 +510,11 @@ body #table .cardSquare .card {
   z-index: 5;
 }
 
-body #table #burnPile {
-  margin-left: 0 !important;
+body #table #burnedPile {
+  margin-left: 20% !important;
 }
 
-body #table #burnPile .card {
+body #table #burnedPile .card {
   width: 8.71vh;
   height: 13vh;
   z-index: 5;

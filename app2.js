@@ -19,11 +19,6 @@ function createNewDivWithClassAndId(parent, whichClass, whichId,) {
     document.getElementById(whichId).classList.add(whichClass);
 }
 
-function addIdToDiv(whichDiv, WhichId) {
-    let divToAddTo = document.querySelector(whichDiv);
-    divToAddTo.setAttribute('id', WhichId);
-}
-
 const cards = [
     {card: 'joker', points: 1},
     {card: 'ace', points: 11},
@@ -117,8 +112,15 @@ let playerScoreCount = 0
 
 function addSomeCardsToPlayerOne(howMany) {
     do {
+        if (deck[cardsDealt].points === 11) {
+            playerAceCount += 1;
+        }
         playerOneCards.push(deck[cardsDealt].card);
         playerScoreCount += deck[cardsDealt].points;
+        if (playerScoreCount > 21 && playerAceCount >= 1) {
+            playerScoreCount -= 10;
+            playerAceCount -= 1;
+        }
         playerScore.textContent = playerScoreCount.toString();
         createNewDivWithClassAndId('playerOneSquare', 'card', playerOneCards[cardsDealtToPlayerOne]);
         cardsDealt += 1;
@@ -131,16 +133,28 @@ let dealerScoreCount = 0;
 
 function addSomeCardsToDealer(howMany) {
     do {
-    dealerCards.push(deck[cardsDealt].card);
-    dealerScoreCount += deck[cardsDealt].points;
-    dealerScore.textContent = dealerScoreCount.toString();
-    createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
-    cardsDealt += 1;
-    cardsDealtToDealer += 1;
+        if (deck[cardsDealt].points === 11) {
+            dealerAceCount += 1;
+        }
+        dealerCards.push(deck[cardsDealt].card);
+        if (deck[cardsDealt].points === 11) {
+            dealerAceCount += 1;
+        }
+        dealerScoreCount += deck[cardsDealt].points;
+        if (dealerScoreCount > 21 && dealerAceCount >= 1) {
+            dealerScoreCount -= 10;
+            playerAceCount -= 1;
+        }
+        dealerScore.textContent = dealerScoreCount.toString();
+        createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
+        cardsDealt += 1;
+        cardsDealtToDealer += 1;
     } while (cardsDealtToDealer + howMany < dealerCards.length);
 }
 
 let dealt = null;
+let playerAceCount = 0;
+let dealerAceCount = 0;
 
 function dealCards() {
     dealt = true;
@@ -149,6 +163,7 @@ function dealCards() {
     addSomeCardsToDealer(1);
     addSomeCardsToPlayerOne(1);
     addSomeCardsToDealer(1);
+    console.log(playerAceCount, dealerAceCount)
 }
 
 function deal() {
@@ -160,7 +175,7 @@ function deal() {
 didPlayerOneStand = null;
 
 function hit() {
-    if (didPlayerOneStand != true && playerScoreCount < 21 ) {
+    if (didPlayerOneStand != true && playerScoreCount <= 21 ) {
     addSomeCardsToPlayerOne(1);
     }
 }
@@ -200,6 +215,8 @@ function reset() {
     points = null;
     deck = [];
     reject = null;
+    playerAceCount = 0;
+    dealerAceCount = 0;
     burnPile = [];
     dealerCards = [];
     playerOneCards = [];
