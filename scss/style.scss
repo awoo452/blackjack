@@ -3,6 +3,9 @@
 @import './cards.scss';
 
 body {
+    h1 {
+        font-family: 'oswald', sans-serif;
+    }
     background-color: rgb(45, 105, 215);
     #table {
         background-color: green;
@@ -13,7 +16,6 @@ body {
         h1 {
             @include margin-killer;
             @include large-font;
-            font-family: 'oswald', sans-serif;
         }
         img {
             width: 25%;

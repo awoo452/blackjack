@@ -481,6 +481,10 @@ body {
   background-color: #2d69d7;
 }
 
+body h1 {
+  font-family: 'oswald', sans-serif;
+}
+
 body #table {
   background-color: green;
   text-align: center;
@@ -499,7 +503,6 @@ body #table h1 {
     font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
     */
   font-size: calc(10px + (22 - 10) * ((100vw - 300px) / (1600 - 300)));
-  font-family: 'oswald', sans-serif;
 }
 
 body #table img {

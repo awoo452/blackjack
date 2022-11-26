@@ -165,12 +165,11 @@ let dealerAceCount = 0;
 
 function dealCards() {
     dealt = true;
-    addSomeCardsToTheBurnPile(1);
-    addSomeCardsToPlayerOne(1);
-    addSomeCardsToDealer(1);
-    addSomeCardsToPlayerOne(1);
-    addSomeCardsToDealer(1);
-    console.log(playerAceCount, dealerAceCount)
+    setTimeout(function() { addSomeCardsToTheBurnPile(1) }, 250);
+    setTimeout(function() { addSomeCardsToPlayerOne(1) }, 500);
+    setTimeout(function() { addSomeCardsToDealer(1) }, 750);
+    setTimeout(function() { addSomeCardsToPlayerOne(1) }, 1000);
+    setTimeout(function() { addSomeCardsToDealer(1) }, 1250);
 }
 
 function deal() {
@@ -184,12 +183,13 @@ didPlayerOneStand = null;
 
 function hit() {
     if (didPlayerOneStand != true && playerScoreCount <= 21 ) {
-    addSomeCardsToPlayerOne(1);
+        setTimeout(function() { addSomeCardsToPlayerOne(1) }, 250);
     }
 }
 
 dealerBusted = null;
 playerBusted = null;
+let finalScore = document.querySelector('#finalScore');
 
 function whoWon() {
     document.getElementById('dealerSquare').firstChild.setAttribute('id', dealerCards[0]);
@@ -201,15 +201,15 @@ function whoWon() {
         playerBusted = true;
     }
     if (playerBusted == true) {
-        console.log('dealer wins because player busted');
+        finalScore.textContent = 'dealer wins because player one busted';
     } else if (dealerBusted == true && playerBusted != true) {
-        console.log('player wins because dealer busted');
+        finalScore.textContent = 'player one wins because dealer busted';
     } else if (dealerScoreCount > playerScoreCount) {
-        console.log('dealer wins because dealer has a better hand');
+        finalScore.textContent = 'dealer wins because dealer has a better hand';
     } else if (dealerScoreCount == playerScoreCount) {
-        console.log('push');
+        finalScore.textContent = 'push';
     } else if (dealerScoreCount < playerScoreCount) {
-        console.log('player wins because player has a better hand');
+        finalScore.textContent = 'player one wins because player one has a better hand';
     }
 }
 
@@ -252,6 +252,7 @@ function reset() {
     }
     dealerScore.textContent = '0';
     playerScore.textContent = '0';
+    finalScore.textContent = '';
 }
 
 const dealButton = document.getElementById('dealButton');
