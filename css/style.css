@@ -1,5 +1,14 @@
 /* @include padding-killer; */
 /* @include custom-image(url('/img/img3.png'), 125%, center, no-repeat, 100%, 300px); */
+#faceDown {
+  background: url("/img/flipped.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 8.71vh;
+  height: 13vh;
+}
+
 #aceOfHearts {
   background: url("/img/hearts/A.png");
   background-size: 100%;
@@ -476,7 +485,7 @@ body #table {
   background-color: green;
   text-align: center;
   max-width: 888px;
-  max-height: 500px;
+  max-height: 888px;
   margin: auto;
 }
 
@@ -508,6 +517,7 @@ body #table .cardSquare .card {
   width: 8.71vh;
   height: 13vh;
   z-index: 5;
+  margin-left: 3px;
 }
 
 body #table #burnedPile {

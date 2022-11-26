@@ -1,5 +1,7 @@
 const randomNumberBetweenZeroAnd = (i) => Math.floor(Math.random() * i);
 
+window.onload = reset;
+
 function createNewDiv(parent) {
     let whereItGoes = document.getElementById(parent);
     let newDiv = document.createElement('div');
@@ -102,6 +104,7 @@ function addSomeCardsToTheBurnPile(howMany) {
     do {
         burnPile.push(deck[cardsDealt].card);
         createNewDivWithClassAndId('burnedPile', 'card', burnPile[cardsBurned]);
+        document.getElementById('burnedPile').firstChild.setAttribute('id', 'faceDown');
         cardsDealt += 1;
         cardsBurned += 1;
     } while (cardsBurned + howMany < burnPile.length);
@@ -137,13 +140,10 @@ function addSomeCardsToDealer(howMany) {
             dealerAceCount += 1;
         }
         dealerCards.push(deck[cardsDealt].card);
-        if (deck[cardsDealt].points === 11) {
-            dealerAceCount += 1;
-        }
         dealerScoreCount += deck[cardsDealt].points;
         if (dealerScoreCount > 21 && dealerAceCount >= 1) {
             dealerScoreCount -= 10;
-            playerAceCount -= 1;
+            dealerAceCount -= 1;
         }
         dealerScore.textContent = dealerScoreCount.toString();
         createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
@@ -170,8 +170,10 @@ function deal() {
     if (dealt != true) {
     newDeckOfCards()
     dealCards();
+    document.getElementById('dealerSquare').firstChild.setAttribute('id', 'faceDown');
     }
 }
+
 didPlayerOneStand = null;
 
 function hit() {

@@ -1,4 +1,8 @@
 
+#faceDown {
+    @include custom-image(url('/img/flipped.png'), 100%, center, no-repeat);
+    @include card-size;
+}
 
 #aceOfHearts {
     @include custom-image(url('/img/hearts/A.png'), 100%, center, no-repeat);
