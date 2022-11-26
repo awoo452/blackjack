@@ -133,6 +133,7 @@ function addSomeCardsToPlayerOne(howMany) {
 
 let dealerScore = document.querySelector('#dealerScore');
 let dealerScoreCount = 0;
+let visibleDealerScoreCount = 0;
 
 function addSomeCardsToDealer(howMany) {
     do {
@@ -141,12 +142,18 @@ function addSomeCardsToDealer(howMany) {
         }
         dealerCards.push(deck[cardsDealt].card);
         dealerScoreCount += deck[cardsDealt].points;
+        if (dealerCards.length === 1) {
+            visibleDealerScoreCount += 0;
+        } else {
+            visibleDealerScoreCount +=deck[cardsDealt].points;
+        }
         if (dealerScoreCount > 21 && dealerAceCount >= 1) {
             dealerScoreCount -= 10;
             dealerAceCount -= 1;
         }
-        dealerScore.textContent = dealerScoreCount.toString();
+        dealerScore.textContent = visibleDealerScoreCount.toString();
         createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
+        document.getElementById('dealerSquare').firstChild.setAttribute('id', 'faceDown');
         cardsDealt += 1;
         cardsDealtToDealer += 1;
     } while (cardsDealtToDealer + howMany < dealerCards.length);
@@ -170,7 +177,6 @@ function deal() {
     if (dealt != true) {
     newDeckOfCards()
     dealCards();
-    document.getElementById('dealerSquare').firstChild.setAttribute('id', 'faceDown');
     }
 }
 
@@ -186,6 +192,8 @@ dealerBusted = null;
 playerBusted = null;
 
 function whoWon() {
+    document.getElementById('dealerSquare').firstChild.setAttribute('id', dealerCards[0]);
+    dealerScore.textContent = dealerScoreCount.toString();
     if (dealerScoreCount > 21) {
         dealerBusted = true;
     }
@@ -226,8 +234,9 @@ function reset() {
     cardsDealtToDealer = 0;
     cardsDealtToPlayerOne = 0;
     cardsBurned = 0;
-    playerScoreCount = 0
+    playerScoreCount = 0;
     dealerScoreCount = 0;
+    visibleDealerScoreCount = 0;
     dealt = null;
     didPlayerOneStand = null;
     dealerBusted = null;
