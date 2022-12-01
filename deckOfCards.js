@@ -49,7 +49,7 @@ let reject = null;
 
 function addCardToDeck() {
     let card = cardDecider() + 'Of' + suitDecider();
-    if (deck.includes(card)) {
+    if (deck.some(e => e.card === card)) {
         reject = true;
     }
     if (reject != true) {
