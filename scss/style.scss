@@ -35,6 +35,11 @@ body {
         #dealerContainer {
             
         }
+        #winner {
+            position: absolute;
+            margin-left: 70vw;
+            max-width: 125px;
+        }
         #burnedPile {
             margin-left: 20%!important;
             .card {
@@ -49,9 +54,18 @@ body {
     .betContainer {
         display: flex;
         background-color: yellow;
-        justify-content: center;
+        width: 100%;
+        max-width: 888px;
+        margin: auto;
+        justify-content: space-evenly;
         align-items: center;
-        width: 30%;
+        #betButtons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 50%;
+        }
         #totalBet {
             text-align: center;
             width: 50%;

@@ -524,6 +524,12 @@ body #table .cardContainer .card {
   margin-left: 3px;
 }
 
+body #table #winner {
+  position: absolute;
+  margin-left: 70vw;
+  max-width: 125px;
+}
+
 body #table #burnedPile {
   margin-left: 20% !important;
 }
@@ -537,9 +543,19 @@ body #table #burnedPile .card {
 body .betContainer {
   display: flex;
   background-color: yellow;
-  justify-content: center;
+  width: 100%;
+  max-width: 888px;
+  margin: auto;
+  justify-content: space-evenly;
   align-items: center;
-  width: 30%;
+}
+
+body .betContainer #betButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 50%;
 }
 
 body .betContainer #totalBet {

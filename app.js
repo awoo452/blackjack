@@ -259,3 +259,25 @@ standButton.addEventListener("click", stand);
 
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener("click", reset);
+
+let whatsTheBet = 25
+const howMuchWillPlayerOneBet = document.getElementById('howMuchWillPlayerOneBet')
+howMuchWillPlayerOneBet.textContent = whatsTheBet.toString();
+
+function lessChips() {
+    whatsTheBet -= 25;
+    howMuchWillPlayerOneBet.textContent = whatsTheBet.toString();
+}
+const lessChipsButton = document.getElementById('lessChips')
+lessChipsButton.addEventListener("click", lessChips)
+
+function moreChips() {
+    whatsTheBet += 25;
+    howMuchWillPlayerOneBet.textContent = whatsTheBet.toString();
+}
+const moreChipsButton = document.getElementById('moreChips')
+moreChipsButton.addEventListener("click", moreChips)
+
+let howManyChipsDoesPlayerOneHave = 500;
+const totalChips = document.getElementById('totalChips');
+totalChips.textContent = howManyChipsDoesPlayerOneHave.toString();

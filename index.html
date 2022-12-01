@@ -18,6 +18,7 @@
 
 
     <body>
+        
         <div id="table">
 
             <h1>Dealer: <span id="dealerScore">0</span></h1>
@@ -36,6 +37,11 @@
                 </div>
                 
                 <div class="cardContainer" id="burnedPile"></div>
+                <div id="winner">
+
+                    <h1 style="text-align: center;"><span id="finalScore"></span></h1>
+        
+                </div>
 
                 <div style="margin-bottom: 1em;" id="buttonContainer">
 
@@ -51,18 +57,16 @@
             <h1>Player 1: <span id="playerScore"> 0</span></h1>
             <div class="cardContainer" id="playerOneCardContainer" name="playerOneCardContainer"></div>
         </div>
-
-        <!--<div class="betContainer" id="playerOneBetContainer">
-            <button id="less">-</button>
-            <div id="totalBet"><span id="howMuchWillPlayerOneBet">0</span></div>
-            <button id="more">+</button>
-        </div>
-        <div class="totalChips">0</div>-->
-
-        <div id="winner">
-
-            <h1 style="text-align: center;"><span id="finalScore"></span></h1>
-
+        <h6 style="position: absolute; margin-block-start: 0; margin-top: 1vh; margin-left: 1em;">Currently working on updates to the betting feature, it does not function at this time.</h6>
+        <div class="betContainer" id="playerOneBetContainer">
+            <div id="betButtons">
+                <button id="lessChips">-</button>
+                <div id="totalBet"><h1>Total Bet: <span id="howMuchWillPlayerOneBet">0</span></h1></div>
+                <button id="moreChips">+</button>
+            </div>
+            <div id="totalBet">
+                <h1>Total Chips: <span id="totalChips">0</span></h1>        
+            </div>
         </div>
 
        
