@@ -1,19 +1,5 @@
 const randomNumberBetweenZeroAnd = (i) => Math.floor(Math.random() * i);
 
-window.onload = reset;
-
-function createNewDiv(parent) {
-    let whereItGoes = document.getElementById(parent);
-    let newDiv = document.createElement('div');
-    whereItGoes.appendChild(newDiv);
-}
-
-function createNewDivWithId(parent, whichId) {
-    let whereItGoes = document.getElementById(parent);
-    let newDiv = document.createElement('div');
-    whereItGoes.appendChild(newDiv).setAttribute('id', whichId);
-}
-
 function createNewDivWithClassAndId(parent, whichClass, whichId,) {
     let whereItGoes = document.getElementById(parent);
     let newDiv = document.createElement('div');
@@ -21,8 +7,10 @@ function createNewDivWithClassAndId(parent, whichClass, whichId,) {
     document.getElementById(whichId).classList.add(whichClass);
 }
 
+window.onload = reset;
+
 const cards = [
-    {card: 'joker', points: 1},
+    {card: 'joker', points: 'over 9000'},
     {card: 'ace', points: 11},
     {card: 'two', points: 2},
     {card: 'three', points: 3},
@@ -89,12 +77,6 @@ let burnPile = [];
 let dealerCards = [];
 let playerOneCards = [];
 
-let playerList = [
-    burnPile,
-    playerOneCards,
-    dealerCards
-]
-
 let cardsDealt = 0;
 let cardsDealtToDealer = 0;
 let cardsDealtToPlayerOne = 0;
@@ -125,15 +107,18 @@ function addSomeCardsToPlayerOne(howMany) {
             playerAceCount -= 1;
         }
         playerScore.textContent = playerScoreCount.toString();
-        createNewDivWithClassAndId('playerOneSquare', 'card', playerOneCards[cardsDealtToPlayerOne]);
+        createNewDivWithClassAndId('playerOneCardSquare', 'card', playerOneCards[cardsDealtToPlayerOne]);
         cardsDealt += 1;
         cardsDealtToPlayerOne += 1;
+        if (playerScoreCount > 21) {
+            stand();
+        }
     } while (cardsDealtToPlayerOne + howMany < playerOneCards.length);
 }
 
 let dealerScore = document.querySelector('#dealerScore');
 let dealerScoreCount = 0;
-let visibleDealerScoreCount = 0;
+let publicFacingDealerScoreCount = 0;
 
 function addSomeCardsToDealer(howMany) {
     do {
@@ -143,15 +128,15 @@ function addSomeCardsToDealer(howMany) {
         dealerCards.push(deck[cardsDealt].card);
         dealerScoreCount += deck[cardsDealt].points;
         if (dealerCards.length === 1) {
-            visibleDealerScoreCount += 0;
+            publicFacingDealerScoreCount += 0;
         } else {
-            visibleDealerScoreCount +=deck[cardsDealt].points;
+            publicFacingDealerScoreCount +=deck[cardsDealt].points;
         }
         if (dealerScoreCount > 21 && dealerAceCount >= 1) {
             dealerScoreCount -= 10;
             dealerAceCount -= 1;
         }
-        dealerScore.textContent = visibleDealerScoreCount.toString();
+        dealerScore.textContent = publicFacingDealerScoreCount.toString();
         createNewDivWithClassAndId('dealerSquare', 'card', dealerCards[cardsDealtToDealer]);
         document.getElementById('dealerSquare').firstChild.setAttribute('id', 'faceDown');
         cardsDealt += 1;
@@ -164,12 +149,20 @@ let playerAceCount = 0;
 let dealerAceCount = 0;
 
 function dealCards() {
-    dealt = true;
+    /*//need to add something to freeze the ability to hit a card while these timeouts are happening
     setTimeout(function() { addSomeCardsToTheBurnPile(1) }, 250);
     setTimeout(function() { addSomeCardsToPlayerOne(1) }, 500);
     setTimeout(function() { addSomeCardsToDealer(1) }, 750);
     setTimeout(function() { addSomeCardsToPlayerOne(1) }, 1000);
     setTimeout(function() { addSomeCardsToDealer(1) }, 1250);
+    //need to add something here to calculate if the dealer got a 21 & auto end game / push if so
+    dealt = true;*/
+    addSomeCardsToTheBurnPile(1);
+    addSomeCardsToPlayerOne(1);
+    addSomeCardsToDealer(1);
+    addSomeCardsToPlayerOne(1);
+    addSomeCardsToDealer(1);
+    dealt = true;
 }
 
 function deal() {
@@ -182,7 +175,7 @@ function deal() {
 didPlayerOneStand = null;
 
 function hit() {
-    if (didPlayerOneStand != true && playerScoreCount <= 21 ) {
+    if (didPlayerOneStand != true && playerScoreCount <= 21) {
         setTimeout(function() { addSomeCardsToPlayerOne(1) }, 250);
     }
 }
@@ -216,8 +209,8 @@ function whoWon() {
 function stand() {
     didPlayerOneStand = true;
     if (dealerScoreCount < 17) {
-    do {addSomeCardsToDealer(1)} while (dealerScoreCount < 17)
-    }
+        do {addSomeCardsToDealer(1)} while (dealerScoreCount < 17)}
+        //need to figure out a set interval / timeout
     whoWon();
 }
 
@@ -236,13 +229,13 @@ function reset() {
     cardsBurned = 0;
     playerScoreCount = 0;
     dealerScoreCount = 0;
-    visibleDealerScoreCount = 0;
+    publicFacingDealerScoreCount = 0;
     dealt = null;
     didPlayerOneStand = null;
     dealerBusted = null;
     playerBusted = null;
-    while (playerOneSquare.hasChildNodes()) {
-        playerOneSquare.removeChild(playerOneSquare.lastChild);
+    while (playerOneCardSquare.hasChildNodes()) {
+        playerOneCardSquare.removeChild(playerOneCardSquare.lastChild);
     }
     while (dealerSquare.hasChildNodes()) {
     dealerSquare.removeChild(dealerSquare.lastChild);

@@ -512,7 +512,7 @@ body #table img {
 
 body #table .cardSquare {
   display: flex;
-  margin-left: 40%;
+  width: 60%;
   height: 13vh;
 }
 
@@ -531,4 +531,17 @@ body #table #burnedPile .card {
   width: 8.71vh;
   height: 13vh;
   z-index: 5;
+}
+
+body .betSquare {
+  display: flex;
+  background-color: yellow;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+
+body .betSquare #totalBet {
+  text-align: center;
+  width: 50%;
 }

@@ -23,8 +23,9 @@ body {
         }
         .cardSquare {           
             display: flex;
-            margin-left: 40%;
+            width: 60%;
             height: $card-height;
+            
             .card {
                 @include card-size;
                 z-index: 5;
@@ -43,6 +44,17 @@ body {
         }
         #playerSquare {
 
+        }
+    }
+    .betSquare {
+        display: flex;
+        background-color: yellow;
+        justify-content: center;
+        align-items: center;
+        width: 30%;
+        #totalBet {
+            text-align: center;
+            width: 50%;
         }
     }
 }
