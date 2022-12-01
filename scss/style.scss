@@ -21,18 +21,18 @@ body {
             width: 25%;
             height: auto;
         }
-        .cardSquare {           
+        .cardContainer {           
             display: flex;
             width: 60%;
             height: $card-height;
-            
+            margin-left: 40%;
             .card {
                 @include card-size;
                 z-index: 5;
                 margin-left: 3px;
             }
         }
-        #dealerSquare {
+        #dealerContainer {
             
         }
         #burnedPile {
@@ -42,11 +42,11 @@ body {
                 z-index: 5;
             }
         }
-        #playerSquare {
+        #playerContainer {
 
         }
     }
-    .betSquare {
+    .betContainer {
         display: flex;
         background-color: yellow;
         justify-content: center;

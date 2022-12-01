@@ -510,13 +510,14 @@ body #table img {
   height: auto;
 }
 
-body #table .cardSquare {
+body #table .cardContainer {
   display: flex;
   width: 60%;
   height: 13vh;
+  margin-left: 40%;
 }
 
-body #table .cardSquare .card {
+body #table .cardContainer .card {
   width: 8.71vh;
   height: 13vh;
   z-index: 5;
@@ -533,7 +534,7 @@ body #table #burnedPile .card {
   z-index: 5;
 }
 
-body .betSquare {
+body .betContainer {
   display: flex;
   background-color: yellow;
   justify-content: center;
@@ -541,7 +542,7 @@ body .betSquare {
   width: 30%;
 }
 
-body .betSquare #totalBet {
+body .betContainer #totalBet {
   text-align: center;
   width: 50%;
 }
