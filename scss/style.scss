@@ -52,21 +52,34 @@ body {
         }
     }
     .betContainer {
+        h1 {
+            @include large-font;
+        }
         display: flex;
+        flex-wrap: wrap;
         background-color: yellow;
         width: 100%;
         max-width: 888px;
         margin: auto;
         justify-content: space-evenly;
         align-items: center;
+        #totalBet {
+            width: 100%;
+            text-align: center;
+        }
         #betButtons {
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-evenly;
+            justify-content: center;
             width: 50%;
+            button {
+                width: 13%;
+                margin-left: 1em;
+                margin-right: 1em;
+            }
         }
-        #totalBet {
+        #totalChips {
             text-align: center;
             width: 50%;
         }

@@ -9,6 +9,43 @@ function createNewDivWithClassAndId(parent, whichClass, whichId,) {
 
 window.onload = reset;
 
+let selectTheBet = 0
+const howMuchWillPlayerOneBet = document.getElementById('howMuchWillPlayerOneBet')
+howMuchWillPlayerOneBet.textContent = selectTheBet.toString();
+
+function decreaseTheBet() {
+    if (selectTheBet > 0) {
+    selectTheBet -= 25;
+    howMuchWillPlayerOneBet.textContent = selectTheBet.toString();
+    }
+}
+const decreaseTheBetButton = document.getElementById('decreaseTheBet')
+decreaseTheBetButton.addEventListener("click", decreaseTheBet)
+
+function increaseTheBet() {
+    if (selectTheBet < howManyChipsDoesPlayerOneHave) {
+    selectTheBet += 25;
+    howMuchWillPlayerOneBet.textContent = selectTheBet.toString();
+    }
+}
+const increaseTheBetButton = document.getElementById('increaseTheBet')
+increaseTheBetButton.addEventListener("click", increaseTheBet)
+
+let howManyChipsDoesPlayerOneHave = 500;
+const totalChipsPlayerOne = document.getElementById('totalChipsPlayerOne');
+totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
+
+let howManyChipsDidPlayerOneBet = 0;
+const totalChipsBet = document.getElementById('totalChipsBet');
+totalChipsBet.textContent = howManyChipsDidPlayerOneBet.toString();
+
+function takeTheBet() {
+    howManyChipsDoesPlayerOneHave -= selectTheBet;
+    howManyChipsDidPlayerOneBet += selectTheBet;
+    totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
+    totalChipsBet.textContent = howManyChipsDidPlayerOneBet.toString();
+}
+
 const cards = [
     {card: 'joker', points: 'over 9000'},
     {card: 'ace', points: 11},
@@ -157,6 +194,7 @@ function dealCards() {
     setTimeout(function() { addSomeCardsToDealer(1) }, 1250);
     //need to add something here to calculate if the dealer got a 21 & auto end game / push if so
     dealt = true;*/
+    takeTheBet();
     addSomeCardsToTheBurnPile(1);
     addSomeCardsToPlayerOne(1);
     addSomeCardsToDealer(1);
@@ -203,12 +241,18 @@ function whoWon() {
         finalScore.textContent = 'dealer wins because player one busted';
     } else if (dealerBusted == true && playerBusted != true) {
         finalScore.textContent = 'player one wins because dealer busted';
+        howManyChipsDoesPlayerOneHave += howManyChipsDidPlayerOneBet * 2;
+        totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
     } else if (dealerScoreCount > playerScoreCount) {
         finalScore.textContent = 'dealer wins because dealer has a better hand';
     } else if (dealerScoreCount == playerScoreCount) {
         finalScore.textContent = 'push';
+        howManyChipsDoesPlayerOneHave += howManyChipsDidPlayerOneBet;
+        totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
     } else if (dealerScoreCount < playerScoreCount) {
         finalScore.textContent = 'player one wins because player one has a better hand';
+        howManyChipsDoesPlayerOneHave += howManyChipsDidPlayerOneBet * 2;
+        totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
     }
 }
 
@@ -240,6 +284,10 @@ function reset() {
     didPlayerOneStand = null;
     dealerBusted = null;
     playerBusted = null;
+    selectTheBet = 0;
+    howMuchWillPlayerOneBet.textContent = selectTheBet.toString();
+    howManyChipsDidPlayerOneBet = 0;
+    totalChipsBet.textContent = howManyChipsDidPlayerOneBet.toString();
     while (playerOneCardContainer.hasChildNodes()) {
         playerOneCardContainer.removeChild(playerOneCardContainer.lastChild);
     }
@@ -266,24 +314,7 @@ standButton.addEventListener("click", stand);
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener("click", reset);
 
-let whatsTheBet = 25
-const howMuchWillPlayerOneBet = document.getElementById('howMuchWillPlayerOneBet')
-howMuchWillPlayerOneBet.textContent = whatsTheBet.toString();
 
-function lessChips() {
-    whatsTheBet -= 25;
-    howMuchWillPlayerOneBet.textContent = whatsTheBet.toString();
-}
-const lessChipsButton = document.getElementById('lessChips')
-lessChipsButton.addEventListener("click", lessChips)
 
-function moreChips() {
-    whatsTheBet += 25;
-    howMuchWillPlayerOneBet.textContent = whatsTheBet.toString();
-}
-const moreChipsButton = document.getElementById('moreChips')
-moreChipsButton.addEventListener("click", moreChips)
 
-let howManyChipsDoesPlayerOneHave = 500;
-const totalChips = document.getElementById('totalChips');
-totalChips.textContent = howManyChipsDoesPlayerOneHave.toString();
+

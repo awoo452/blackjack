@@ -542,6 +542,7 @@ body #table #burnedPile .card {
 
 body .betContainer {
   display: flex;
+  flex-wrap: wrap;
   background-color: yellow;
   width: 100%;
   max-width: 888px;
@@ -550,15 +551,34 @@ body .betContainer {
   align-items: center;
 }
 
+body .betContainer h1 {
+  /*
+    https://css-tricks.com/snippets/css/fluid-typography/
+    font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
+    */
+  font-size: calc(10px + (22 - 10) * ((100vw - 300px) / (1600 - 300)));
+}
+
+body .betContainer #totalBet {
+  width: 100%;
+  text-align: center;
+}
+
 body .betContainer #betButtons {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   width: 50%;
 }
 
-body .betContainer #totalBet {
+body .betContainer #betButtons button {
+  width: 13%;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+body .betContainer #totalChips {
   text-align: center;
   width: 50%;
 }
