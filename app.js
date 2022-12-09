@@ -204,9 +204,11 @@ function dealCards() {
 }
 
 function deal() {
-    if (dealt != true) {
+    if (dealt != true && selectTheBet != 0) {
     newDeckOfCards()
     dealCards();
+    } else if (selectTheBet == 0) {
+        alert('Select a bet');
     }
     if (dealerScoreCount === 21 && publicFacingDealerScoreCount === 10) {
         whoWon();
