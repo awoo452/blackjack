@@ -569,7 +569,7 @@ body .betContainer #betButtons {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 70%;
 }
 
 body .betContainer #betButtons button {
@@ -580,5 +580,5 @@ body .betContainer #betButtons button {
 
 body .betContainer #totalChips {
   text-align: center;
-  width: 50%;
+  width: 30%;
 }
