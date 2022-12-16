@@ -540,6 +540,19 @@ body #table #burnedPile .card {
   z-index: 5;
 }
 
+body #buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+body #buttonContainer .buttons {
+  width: 25%;
+}
+
+body #buttonContainer .buttons button {
+  width: 80%;
+}
+
 body .betContainer {
   display: flex;
   flex-wrap: wrap;

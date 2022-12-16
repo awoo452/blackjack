@@ -219,10 +219,12 @@ function deal() {
 }
 
 didPlayerOneStand = null;
+hasPlayerHit = null;
 
 function hit() {
     if (didPlayerOneStand != true && playerScoreCount <= 21) {
-        setTimeout(function() { addSomeCardsToPlayerOne(1) }, 250);
+        addSomeCardsToPlayerOne(1);
+        hasPlayerHit = true;
     }
 }
 
@@ -266,6 +268,15 @@ function stand() {
     whoWon();
 }
 
+function doubleDown() {
+    if (didPlayerOneStand != true && playerScoreCount <= 21 && hasPlayerHit != true) {
+        //double the bet
+        //receive only one more card
+        takeTheBet();
+        addSomeCardsToPlayerOne(1);
+        stand();
+    }
+}
 function reset() {
     points = null;
     deck = [];
@@ -286,6 +297,7 @@ function reset() {
     didPlayerOneStand = null;
     dealerBusted = null;
     playerBusted = null;
+    hasPlayerHit = null;
     selectTheBet = 0;
     howMuchWillPlayerOneBet.textContent = selectTheBet.toString();
     howManyChipsDidPlayerOneBet = 0;
@@ -316,7 +328,8 @@ standButton.addEventListener("click", stand);
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener("click", reset);
 
-
+const doubleDownButton = document.getElementById('doubleDown');
+doubleDownButton.addEventListener("click", doubleDown);
 
 
 

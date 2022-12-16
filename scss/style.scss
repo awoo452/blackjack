@@ -51,6 +51,18 @@ body {
 
         }
     }
+    #buttonContainer {
+        display: flex;
+        flex-wrap: wrap;
+
+        .buttons {
+         width: 25%;
+         button {
+            width: 80%;
+         }
+        }
+
+    }
     .betContainer {
         h1 {
             @include large-font;
