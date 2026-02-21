@@ -1,335 +1,350 @@
-const randomNumberBetweenZeroAnd = (i) => Math.floor(Math.random() * i);
+(() => {
+  'use strict';
 
-function createNewDivWithClassAndId(parent, whichClass, whichId,) {
-    let whereItGoes = document.getElementById(parent);
-    let newDiv = document.createElement('div');
-    whereItGoes.appendChild(newDiv).setAttribute('id', whichId);
-    document.getElementById(whichId).classList.add(whichClass);
-}
+  const BET_STEP = 25;
+  const INITIAL_CHIPS = 500;
+  const DEALER_STAND_MIN = 17;
+  const FACE_DOWN_ID = 'faceDown';
 
-window.onload = reset;
+  const RANKS = [
+    { name: 'ace', points: 11, isAce: true },
+    { name: 'two', points: 2 },
+    { name: 'three', points: 3 },
+    { name: 'four', points: 4 },
+    { name: 'five', points: 5 },
+    { name: 'six', points: 6 },
+    { name: 'seven', points: 7 },
+    { name: 'eight', points: 8 },
+    { name: 'nine', points: 9 },
+    { name: 'ten', points: 10 },
+    { name: 'jack', points: 10 },
+    { name: 'queen', points: 10 },
+    { name: 'king', points: 10 },
+  ];
 
-let selectTheBet = 0
-const howMuchWillPlayerOneBet = document.getElementById('howMuchWillPlayerOneBet')
-howMuchWillPlayerOneBet.textContent = selectTheBet.toString();
+  const SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs'];
 
-function decreaseTheBet() {
-    if (selectTheBet > 0) {
-    selectTheBet -= 25;
-    howMuchWillPlayerOneBet.textContent = selectTheBet.toString();
+  const state = {
+    deck: [],
+    burn: [],
+    player: {
+      hand: [],
+      score: 0,
+      hasStood: false,
+      hasHit: false,
+    },
+    dealer: {
+      hand: [],
+      score: 0,
+    },
+    bets: {
+      selected: 0,
+      placed: 0,
+      chips: INITIAL_CHIPS,
+    },
+    dealt: false,
+    roundOver: false,
+  };
+
+  let el = {};
+
+  function cacheElements() {
+    el = {
+      playerScore: document.querySelector('#playerScore'),
+      dealerScore: document.querySelector('#dealerScore'),
+      finalScore: document.querySelector('#finalScore'),
+      playerContainer: document.getElementById('playerOneCardContainer'),
+      dealerContainer: document.getElementById('dealerContainer'),
+      burnPile: document.getElementById('burnedPile'),
+      betValue: document.getElementById('howMuchWillPlayerOneBet'),
+      totalBet: document.getElementById('totalChipsBet'),
+      totalChips: document.getElementById('totalChipsPlayerOne'),
+      dealButton: document.getElementById('dealButton'),
+      hitButton: document.getElementById('hitButton'),
+      standButton: document.getElementById('standButton'),
+      resetButton: document.getElementById('resetButton'),
+      doubleDownButton: document.getElementById('doubleDown'),
+      increaseBetButton: document.getElementById('increaseTheBet'),
+      decreaseBetButton: document.getElementById('decreaseTheBet'),
+    };
+  }
+
+  function bindEvents() {
+    el.dealButton.addEventListener('click', deal);
+    el.hitButton.addEventListener('click', hit);
+    el.standButton.addEventListener('click', stand);
+    el.resetButton.addEventListener('click', resetTable);
+    el.doubleDownButton.addEventListener('click', doubleDown);
+    el.increaseBetButton.addEventListener('click', increaseBet);
+    el.decreaseBetButton.addEventListener('click', decreaseBet);
+  }
+
+  function init() {
+    cacheElements();
+    bindEvents();
+    resetTable();
+    updateBetDisplays();
+  }
+
+  window.addEventListener('load', init);
+
+  function updateBetDisplays() {
+    el.betValue.textContent = state.bets.selected.toString();
+    el.totalBet.textContent = state.bets.placed.toString();
+    el.totalChips.textContent = state.bets.chips.toString();
+  }
+
+  function setSelectedBet(amount) {
+    const clamped = Math.max(0, Math.min(amount, state.bets.chips));
+    state.bets.selected = clamped;
+    updateBetDisplays();
+  }
+
+  function increaseBet() {
+    if (state.dealt) return;
+    setSelectedBet(state.bets.selected + BET_STEP);
+  }
+
+  function decreaseBet() {
+    if (state.dealt) return;
+    setSelectedBet(state.bets.selected - BET_STEP);
+  }
+
+  function placeBet() {
+    if (state.bets.selected <= 0) return false;
+    if (state.bets.selected > state.bets.chips) return false;
+    state.bets.chips -= state.bets.selected;
+    state.bets.placed += state.bets.selected;
+    updateBetDisplays();
+    return true;
+  }
+
+  function buildDeck() {
+    const deck = [];
+    for (const suit of SUITS) {
+      for (const rank of RANKS) {
+        deck.push({
+          id: `${rank.name}Of${suit}`,
+          points: rank.points,
+          isAce: Boolean(rank.isAce),
+        });
+      }
     }
-}
-const decreaseTheBetButton = document.getElementById('decreaseTheBet')
-decreaseTheBetButton.addEventListener("click", decreaseTheBet)
+    return shuffle(deck);
+  }
 
-function increaseTheBet() {
-    if (selectTheBet < howManyChipsDoesPlayerOneHave) {
-    selectTheBet += 25;
-    howMuchWillPlayerOneBet.textContent = selectTheBet.toString();
+  function shuffle(deck) {
+    for (let i = deck.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
     }
-}
-const increaseTheBetButton = document.getElementById('increaseTheBet')
-increaseTheBetButton.addEventListener("click", increaseTheBet)
+    return deck;
+  }
 
-let howManyChipsDoesPlayerOneHave = 500;
-const totalChipsPlayerOne = document.getElementById('totalChipsPlayerOne');
-totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
+  function drawCard() {
+    return state.deck.pop();
+  }
 
-let howManyChipsDidPlayerOneBet = 0;
-const totalChipsBet = document.getElementById('totalChipsBet');
-totalChipsBet.textContent = howManyChipsDidPlayerOneBet.toString();
-
-function takeTheBet() {
-    howManyChipsDoesPlayerOneHave -= selectTheBet;
-    howManyChipsDidPlayerOneBet += selectTheBet;
-    totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
-    totalChipsBet.textContent = howManyChipsDidPlayerOneBet.toString();
-}
-
-const cards = [
-    {card: 'joker', points: 'over 9000'},
-    {card: 'ace', points: 11},
-    {card: 'two', points: 2},
-    {card: 'three', points: 3},
-    {card: 'four', points: 4},
-    {card: 'five', points: 5},
-    {card: 'six', points: 6},
-    {card: 'seven', points: 7},
-    {card: 'eight', points: 8},
-    {card: 'nine', points: 9},
-    {card: 'ten', points: 10},
-    {card: 'jack', points: 10},
-    {card: 'queen', points: 10},
-    {card: 'king', points: 10}
-]
-
-const numberOfCardsInTheDeck = 52
-let points = null;
-
-function cardDecider() {
-    let value = randomNumberBetweenZeroAnd(cards.length)
-    if (value === 0) {
-        value += 1; //This removes the joker from the deck, there's a better way to do this.
+  function clearContainer(container) {
+    while (container.firstChild) {
+      container.removeChild(container.lastChild);
     }
-    points = cards[value].points;
-    return cards[value].card;
-    
-}
+  }
 
-const suit = [
-    'Hearts',
-    'Spades',
-    'Diamonds',
-    'Clubs'
-]
+  function renderCard(container, cardId) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.setAttribute('id', cardId);
+    container.appendChild(card);
+    return card;
+  }
 
-function suitDecider() {
-    let value = randomNumberBetweenZeroAnd(suit.length);
-    return suit[value];
-}
-
-let deck = [];
-
-let reject = null;
-
-function addCardToDeck() {
-    let card = cardDecider() + 'Of' + suitDecider();
-    if (deck.some(e => e.card === card)) {
-        reject = true;
+  function burnCards(count) {
+    for (let i = 0; i < count; i += 1) {
+      const card = drawCard();
+      if (!card) return;
+      state.burn.push(card);
+      renderCard(el.burnPile, card.id);
+      if (el.burnPile.firstElementChild) {
+        el.burnPile.firstElementChild.setAttribute('id', FACE_DOWN_ID);
+      }
     }
-    if (reject != true) {
-    deck.push({card, points});
+  }
+
+  function dealToPlayer(count) {
+    for (let i = 0; i < count; i += 1) {
+      const card = drawCard();
+      if (!card) return;
+      state.player.hand.push(card);
+      renderCard(el.playerContainer, card.id);
     }
-    reject = false;
-}
+  }
 
-function newDeckOfCards() {
-    do {
-        addCardToDeck();
-    } while (deck.length < numberOfCardsInTheDeck);
-    console.log(deck);
-}
-
-let burnPile = [];
-let dealerCards = [];
-let playerOneCards = [];
-
-let cardsDealt = 0;
-let cardsDealtToDealer = 0;
-let cardsDealtToPlayerOne = 0;
-let cardsBurned = 0;
-
-function addSomeCardsToTheBurnPile(howMany) {
-    do {
-        burnPile.push(deck[cardsDealt].card);
-        createNewDivWithClassAndId('burnedPile', 'card', burnPile[cardsBurned]);
-        document.getElementById('burnedPile').firstChild.setAttribute('id', 'faceDown');
-        cardsDealt += 1;
-        cardsBurned += 1;
-    } while (cardsBurned + howMany < burnPile.length);
-}
-
-let playerScore = document.querySelector("#playerScore");
-let playerScoreCount = 0
-
-function addSomeCardsToPlayerOne(howMany) {
-    do {
-        if (deck[cardsDealt].points === 11) {
-            playerAceCount += 1;
-        }
-        playerOneCards.push(deck[cardsDealt].card);
-        playerScoreCount += deck[cardsDealt].points;
-        if (playerScoreCount > 21 && playerAceCount >= 1) {
-            playerScoreCount -= 10;
-            playerAceCount -= 1;
-        }
-        playerScore.textContent = playerScoreCount.toString();
-        createNewDivWithClassAndId('playerOneCardContainer', 'card', playerOneCards[cardsDealtToPlayerOne]);
-        cardsDealt += 1;
-        cardsDealtToPlayerOne += 1;
-        if (playerScoreCount > 21) {
-            stand();
-        }
-    } while (cardsDealtToPlayerOne + howMany < playerOneCards.length);
-}
-
-let dealerScore = document.querySelector('#dealerScore');
-let dealerScoreCount = 0;
-let publicFacingDealerScoreCount = 0;
-
-function addSomeCardsToDealer(howMany) {
-    do {
-        if (deck[cardsDealt].points === 11) {
-            dealerAceCount += 1;
-        }
-        dealerCards.push(deck[cardsDealt].card);
-        dealerScoreCount += deck[cardsDealt].points;
-        if (dealerCards.length === 1) {
-            publicFacingDealerScoreCount += 0;
-        } else {
-            publicFacingDealerScoreCount +=deck[cardsDealt].points;
-        }
-        if (dealerScoreCount > 21 && dealerAceCount >= 1) {
-            dealerScoreCount -= 10;
-            dealerAceCount -= 1;
-        }
-        dealerScore.textContent = publicFacingDealerScoreCount.toString();
-        createNewDivWithClassAndId('dealerContainer', 'card', dealerCards[cardsDealtToDealer]);
-        document.getElementById('dealerContainer').firstChild.setAttribute('id', 'faceDown');
-        cardsDealt += 1;
-        cardsDealtToDealer += 1;
-    } while (cardsDealtToDealer + howMany < dealerCards.length);
-}
-
-let dealt = null;
-let playerAceCount = 0;
-let dealerAceCount = 0;
-
-function dealCards() {
-    /*//need to add something to freeze the ability to hit a card while these timeouts are happening
-    setTimeout(function() { addSomeCardsToTheBurnPile(1) }, 250);
-    setTimeout(function() { addSomeCardsToPlayerOne(1) }, 500);
-    setTimeout(function() { addSomeCardsToDealer(1) }, 750);
-    setTimeout(function() { addSomeCardsToPlayerOne(1) }, 1000);
-    setTimeout(function() { addSomeCardsToDealer(1) }, 1250);
-    //need to add something here to calculate if the dealer got a 21 & auto end game / push if so
-    dealt = true;*/
-    takeTheBet();
-    addSomeCardsToTheBurnPile(1);
-    addSomeCardsToPlayerOne(1);
-    addSomeCardsToDealer(1);
-    addSomeCardsToPlayerOne(1);
-    addSomeCardsToDealer(1);
-    dealt = true;
-}
-
-function deal() {
-    if (dealt != true && selectTheBet != 0) {
-    newDeckOfCards()
-    dealCards();
-    } else if (selectTheBet == 0) {
-        alert('Select a bet');
+  function dealToDealer(count, { faceDownFirst = false } = {}) {
+    for (let i = 0; i < count; i += 1) {
+      const card = drawCard();
+      if (!card) return;
+      state.dealer.hand.push(card);
+      renderCard(el.dealerContainer, card.id);
     }
-    if (dealerScoreCount === 21 && publicFacingDealerScoreCount === 10) {
-        whoWon();
-    }   else if (dealerScoreCount === 21 && publicFacingDealerScoreCount === 11) {
-        //askForInsurance
-        whoWon();
+    if (faceDownFirst && el.dealerContainer.firstElementChild) {
+      el.dealerContainer.firstElementChild.setAttribute('id', FACE_DOWN_ID);
     }
-}
+  }
 
-didPlayerOneStand = null;
-hasPlayerHit = null;
-
-function hit() {
-    if (didPlayerOneStand != true && playerScoreCount <= 21) {
-        addSomeCardsToPlayerOne(1);
-        hasPlayerHit = true;
+  function calculateHandScore(hand) {
+    let total = 0;
+    let aceCount = 0;
+    for (const card of hand) {
+      total += card.points;
+      if (card.isAce) aceCount += 1;
     }
-}
-
-dealerBusted = null;
-playerBusted = null;
-let finalScore = document.querySelector('#finalScore');
-
-function whoWon() {
-    document.getElementById('dealerContainer').firstChild.setAttribute('id', dealerCards[0]);
-    dealerScore.textContent = dealerScoreCount.toString();
-    if (dealerScoreCount > 21) {
-        dealerBusted = true;
+    while (total > 21 && aceCount > 0) {
+      total -= 10;
+      aceCount -= 1;
     }
-    if (playerScoreCount > 21) {
-        playerBusted = true;
+    return total;
+  }
+
+  function calculateVisibleDealerScore() {
+    if (state.dealer.hand.length <= 1) return 0;
+    return calculateHandScore(state.dealer.hand.slice(1));
+  }
+
+  function updateScores({ revealDealer = false } = {}) {
+    state.player.score = calculateHandScore(state.player.hand);
+    state.dealer.score = calculateHandScore(state.dealer.hand);
+
+    el.playerScore.textContent = state.player.score.toString();
+    const dealerScore = revealDealer
+      ? state.dealer.score
+      : calculateVisibleDealerScore();
+    el.dealerScore.textContent = dealerScore.toString();
+  }
+
+  function revealDealerHoleCard() {
+    const firstCard = el.dealerContainer.firstElementChild;
+    if (firstCard && state.dealer.hand[0]) {
+      firstCard.setAttribute('id', state.dealer.hand[0].id);
     }
-    if (playerBusted == true) {
-        finalScore.textContent = 'dealer wins because player one busted';
-    } else if (dealerBusted == true && playerBusted != true) {
-        finalScore.textContent = 'player one wins because dealer busted';
-        howManyChipsDoesPlayerOneHave += howManyChipsDidPlayerOneBet * 2;
-        totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
-    } else if (dealerScoreCount > playerScoreCount) {
-        finalScore.textContent = 'dealer wins because dealer has a better hand';
-    } else if (dealerScoreCount == playerScoreCount) {
-        finalScore.textContent = 'push';
-        howManyChipsDoesPlayerOneHave += howManyChipsDidPlayerOneBet;
-        totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
-    } else if (dealerScoreCount < playerScoreCount) {
-        finalScore.textContent = 'player one wins because player one has a better hand';
-        howManyChipsDoesPlayerOneHave += howManyChipsDidPlayerOneBet * 2;
-        totalChipsPlayerOne.textContent = howManyChipsDoesPlayerOneHave.toString();
+  }
+
+  function deal() {
+    if (state.dealt) return;
+    if (!placeBet()) {
+      const message = state.bets.selected <= 0 ? 'Select a bet' : 'Not enough chips';
+      alert(message);
+      return;
     }
-}
 
-function stand() {
-    didPlayerOneStand = true;
-    if (dealerScoreCount < 17) {
-        do {addSomeCardsToDealer(1)} while (dealerScoreCount < 17)}
-        //need to figure out a set interval / timeout
-    whoWon();
-}
+    state.deck = buildDeck();
+    state.dealt = true;
+    state.roundOver = false;
 
-function doubleDown() {
-    if (didPlayerOneStand != true && playerScoreCount <= 21 && hasPlayerHit != true) {
-        //double the bet
-        //receive only one more card
-        takeTheBet();
-        addSomeCardsToPlayerOne(1);
-        stand();
+    burnCards(1);
+    dealToPlayer(1);
+    dealToDealer(1, { faceDownFirst: true });
+    dealToPlayer(1);
+    dealToDealer(1);
+
+    updateScores();
+
+    if (state.dealer.score === 21) {
+      endRound();
     }
-}
-function reset() {
-    points = null;
-    deck = [];
-    reject = null;
-    playerAceCount = 0;
-    dealerAceCount = 0;
-    burnPile = [];
-    dealerCards = [];
-    playerOneCards = [];
-    cardsDealt = 0;
-    cardsDealtToDealer = 0;
-    cardsDealtToPlayerOne = 0;
-    cardsBurned = 0;
-    playerScoreCount = 0;
-    dealerScoreCount = 0;
-    publicFacingDealerScoreCount = 0;
-    dealt = null;
-    didPlayerOneStand = null;
-    dealerBusted = null;
-    playerBusted = null;
-    hasPlayerHit = null;
-    selectTheBet = 0;
-    howMuchWillPlayerOneBet.textContent = selectTheBet.toString();
-    howManyChipsDidPlayerOneBet = 0;
-    totalChipsBet.textContent = howManyChipsDidPlayerOneBet.toString();
-    while (playerOneCardContainer.hasChildNodes()) {
-        playerOneCardContainer.removeChild(playerOneCardContainer.lastChild);
+  }
+
+  function hit() {
+    if (!state.dealt || state.player.hasStood || state.roundOver) return;
+    dealToPlayer(1);
+    state.player.hasHit = true;
+    updateScores();
+    if (state.player.score > 21) {
+      stand();
     }
-    while (dealerContainer.hasChildNodes()) {
-    dealerContainer.removeChild(dealerContainer.lastChild);
+  }
+
+  function stand() {
+    if (!state.dealt || state.player.hasStood || state.roundOver) return;
+    state.player.hasStood = true;
+    revealDealerHoleCard();
+    updateScores({ revealDealer: true });
+
+    while (state.dealer.score < DEALER_STAND_MIN) {
+      dealToDealer(1);
+      updateScores({ revealDealer: true });
     }
-    while (burnedPile.hasChildNodes()) {
-        burnedPile.removeChild(burnedPile.lastChild);
+
+    endRound();
+  }
+
+  function doubleDown() {
+    if (!state.dealt || state.player.hasStood || state.roundOver) return;
+    if (state.player.hasHit) return;
+    if (state.bets.selected <= 0) return;
+    if (state.bets.chips < state.bets.selected) {
+      alert('Not enough chips');
+      return;
     }
-    dealerScore.textContent = '0';
-    playerScore.textContent = '0';
-    finalScore.textContent = '';
-}
+    placeBet();
+    dealToPlayer(1);
+    state.player.hasHit = true;
+    updateScores();
+    stand();
+  }
 
-const dealButton = document.getElementById('dealButton');
-dealButton.addEventListener("click", deal);
+  function endRound() {
+    if (state.roundOver) return;
+    state.roundOver = true;
+    state.player.hasStood = true;
 
-const hitButton = document.getElementById('hitButton');
-hitButton.addEventListener("click", hit);
+    revealDealerHoleCard();
+    updateScores({ revealDealer: true });
 
-const standButton = document.getElementById('standButton');
-standButton.addEventListener("click", stand);
+    const playerScore = state.player.score;
+    const dealerScore = state.dealer.score;
 
-const resetButton = document.getElementById('resetButton');
-resetButton.addEventListener("click", reset);
+    if (playerScore > 21) {
+      el.finalScore.textContent = 'dealer wins because player one busted';
+    } else if (dealerScore > 21) {
+      el.finalScore.textContent = 'player one wins because dealer busted';
+      state.bets.chips += state.bets.placed * 2;
+    } else if (dealerScore > playerScore) {
+      el.finalScore.textContent = 'dealer wins because dealer has a better hand';
+    } else if (dealerScore === playerScore) {
+      el.finalScore.textContent = 'push';
+      state.bets.chips += state.bets.placed;
+    } else {
+      el.finalScore.textContent = 'player one wins because player one has a better hand';
+      state.bets.chips += state.bets.placed * 2;
+    }
 
-const doubleDownButton = document.getElementById('doubleDown');
-doubleDownButton.addEventListener("click", doubleDown);
+    updateBetDisplays();
+  }
 
+  function resetTable() {
+    state.deck = [];
+    state.burn = [];
+    state.player.hand = [];
+    state.player.score = 0;
+    state.player.hasStood = false;
+    state.player.hasHit = false;
+    state.dealer.hand = [];
+    state.dealer.score = 0;
+    state.dealt = false;
+    state.roundOver = false;
 
+    state.bets.selected = 0;
+    state.bets.placed = 0;
 
+    clearContainer(el.playerContainer);
+    clearContainer(el.dealerContainer);
+    clearContainer(el.burnPile);
+
+    el.playerScore.textContent = '0';
+    el.dealerScore.textContent = '0';
+    el.finalScore.textContent = '';
+
+    updateBetDisplays();
+  }
+})();
