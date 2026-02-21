@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
+## [0.0.3] - 2026-02-21
+### Changed
+- Deduplicated repeated `h1` typography rules in `css/style.css`.
+- Updated logo.
+
 ## [0.0.2] - 2026-02-21
 ### Added
 - Added `.gitignore` to prevent reintroducing build artifacts and temp files.
