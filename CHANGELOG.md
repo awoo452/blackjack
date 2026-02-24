@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
+## [0.0.5] - 2026-02-24
+### Changed
+- Expanded README into the project docs and clarified Amplify/static hosting.
+
 ## [0.0.4] - 2026-02-22
 ### Added
 - Terms of Use and Privacy Policy pages.
